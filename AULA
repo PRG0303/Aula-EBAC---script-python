@@ -1,1 +1,117 @@
+# === calculadora.sh ===
 
+#!/usr/bin/env bash
+
+# calculadora.sh - Calculadora simples de terminal
+
+mostrar_menu() {
+
+ echo "==== Calculadora ===="
+
+ echo "1) Soma"
+
+ echo "2) Subtração"
+
+ echo "3) Multiplicação"
+
+ echo "4) Divisão"
+
+ echo "5) Sair"
+
+ echo "====================="
+
+}
+
+ler_numeros() {
+
+ read -r -p "Digite o primeiro número: " a
+
+ read -r -p "Digite o segundo número: " b
+
+}
+
+while true; do
+
+ mostrar_menu
+
+ read -r -p "Escolha uma opção (1-5): " opc
+
+ case "$opc" in
+
+  1)
+
+   ler_numeros
+
+   resultado=$(echo "$a + $b" | bc -l)
+
+   echo "Resultado: $resultado"
+
+   ;;
+
+  2)
+
+   ler_numeros
+
+   resultado=$(echo "$a - $b" | bc -l)
+
+   echo "Resultado: $resultado"
+
+   ;;
+
+  3)
+
+   ler_numeros
+
+   resultado=$(echo "$a * $b" | bc -l)
+
+   echo "Resultado: $resultado"
+
+   ;;
+
+  4)
+
+   ler_numeros
+
+   if echo "$b == 0" | bc -l | grep -q 1; then
+
+    echo "Erro: divisão por zero."
+
+   else
+
+    resultado=$(echo "$a / $b" | bc -l)
+
+    echo "Resultado: $resultado"
+
+   fi
+
+   ;;
+
+  5)
+
+   echo "Saindo..."
+
+   exit 0
+
+   ;;
+
+  *)
+
+   echo "Opção inválida. Tente novamente."
+
+   ;;
+
+ esac
+
+ echo
+
+done
+
+# === comandos.txt ===
+
+# 3 e 4) Alterar permissões e tornar executável
+
+chmod 744 calculadora.sh
+
+# 5) Executar o script
+
+./calculadora.sh
